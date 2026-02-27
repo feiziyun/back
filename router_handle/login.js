@@ -1,9 +1,10 @@
+// 导入数据库
 const db = require('../db/index.js');
-//导入加密中间件
+// 导入加密中间件
 const bcrypt = require('bcryptjs');
-//导入jwt，用于生成token
+// 导入jwt，用于生成token
 const jwt = require('jsonwebtoken')
-//导入jwt配置文件，用于加密解密
+// 导入jwt配置文件，用于加密解密
 const jwtconfig = require('../jwt_config/index.js')
 
 exports.register = (req, res) => {
@@ -28,13 +29,13 @@ exports.register = (req, res) => {
     }
   })
   //对密码加密  中间件 bcrypt.js 
-  pwd = bcrypt.hashSync(regInfo.password, 10);
+  hashedPassword = bcrypt.hashSync(regInfo.password, 10);
   const sql1 = 'insert into users set ?';
   const identity = '用户'
   const create_time = new Date();
   db.query(sql1,{
     account:regInfo.account,
-    password:pwd,
+    password:hashedPassword,
     identity,
     create_time,
     status:0 
@@ -45,11 +46,11 @@ exports.register = (req, res) => {
         status:1,
         message:'注册用户失败，请稍后再试'
       })
-    }
+    };
     res.send({
-      status:1,
+      status:0,
       message:'注册成功'
-    })
+    });
   })
 }
 

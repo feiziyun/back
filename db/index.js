@@ -5,7 +5,7 @@ const db = mysql.createPool({
   host:'localhost',
   user:'root',
   password:'12345678',
-  database:'employee_mgmt'
+  database:'ManagementSystem'
 })
 
 //对外暴露
